@@ -9,7 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "../components/ui/table"
-import { PlusCircle } from 'lucide-react'
+import { Edit, PlusCircle, Trash } from 'lucide-react'
 import { Modal } from "../components/Modal"
 import { Input } from "../components/ui/input"
 import { Label } from "../components/ui/label"
@@ -28,7 +28,7 @@ const initialRoles: Role[] = [
   { id: 3, name: "Viewer", description: "Can view content only" },
 ]
 
-const RolesPage =() => {
+const RolesPage: React.FC =() => {
   const [roles, setRoles] = useState<Role[]>(initialRoles)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [editingRole, setEditingRole] = useState<Role | null>(null)
@@ -79,7 +79,7 @@ const RolesPage =() => {
             <TableRow key={role.id}>
               <TableCell>{role.name}</TableCell>
               <TableCell>{role.description}</TableCell>
-              <TableCell>
+              <TableCell className="flex">
                 <Button 
                   variant="outline" 
                   size="sm" 
@@ -89,14 +89,14 @@ const RolesPage =() => {
                     setIsModalOpen(true)
                   }}
                 >
-                  Edit
+                  <Edit/>
                 </Button>
                 <Button 
                   variant="destructive" 
                   size="sm"
                   onClick={() => handleDeleteRole(role.id)}
                 >
-                  Delete
+                  <Trash/>
                 </Button>
               </TableCell>
             </TableRow>
@@ -143,5 +143,5 @@ const RolesPage =() => {
     </div>
   )
 }
-
-export default RootLayout(RolesPage)
+ const WrappedRoles = RootLayout(RolesPage);
+export default WrappedRoles

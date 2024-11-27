@@ -8,7 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from "../components/ui/table"
-import { PlusCircle } from 'lucide-react'
+import { Edit, PlusCircle, Trash } from 'lucide-react'
 import { Modal } from "../components/Modal"
 import { Input } from "../components/ui/input"
 import { Label } from "../components/ui/label"
@@ -28,7 +28,7 @@ const initialUsers: User[] = [
   { id: 3, name: "Bob Johnson", email: "bob@example.com", role: "Viewer" },
 ]
 
-const Users = () => {
+const Users: React.FC = () => {
   const [users, setUsers] = useState<User[]>(initialUsers)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [editingUser, setEditingUser] = useState<User | null>(null)
@@ -81,7 +81,7 @@ const Users = () => {
               <TableCell>{user.name}</TableCell>
               <TableCell>{user.email}</TableCell>
               <TableCell>{user.role}</TableCell>
-              <TableCell>
+              <TableCell className="flex">
                 <Button 
                   variant="outline" 
                   size="sm" 
@@ -91,14 +91,14 @@ const Users = () => {
                     setIsModalOpen(true)
                   }}
                 >
-                  Edit
+                <Edit/>
                 </Button>
                 <Button 
                   variant="destructive" 
                   size="sm"
                   onClick={() => handleDeleteUser(user.id)}
                 >
-                  Delete
+                  <Trash/>
                 </Button>
               </TableCell>
             </TableRow>
@@ -166,4 +166,5 @@ const Users = () => {
   )
 }
 
-export default RootLayout(Users)
+const WrappedUsers = RootLayout(Users);
+export default WrappedUsers;

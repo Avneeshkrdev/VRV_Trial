@@ -9,7 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "../components/ui/table"
-import { PlusCircle } from 'lucide-react'
+import { Edit,  PlusCircle, Trash } from 'lucide-react'
 import { Modal } from "../components/Modal"
 import { Input } from "../components/ui/input"
 import { Label } from "../components/ui/label"
@@ -30,7 +30,7 @@ const initialPermissions: Permission[] = [
   { id: 4, name: "Manage Roles", description: "Ability to manage roles" },
 ]
 
-const PermissionsPage =() => {
+const PermissionsPage: React.FC =() => {
   const [permissions, setPermissions] = useState<Permission[]>(initialPermissions)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [editingPermission, setEditingPermission] = useState<Permission | null>(null)
@@ -81,7 +81,7 @@ const PermissionsPage =() => {
             <TableRow key={permission.id}>
               <TableCell>{permission.name}</TableCell>
               <TableCell>{permission.description}</TableCell>
-              <TableCell>
+              <TableCell className="flex ">
                 <Button 
                   variant="outline" 
                   size="sm" 
@@ -91,14 +91,14 @@ const PermissionsPage =() => {
                     setIsModalOpen(true)
                   }}
                 >
-                  Edit
+                  <Edit/>
                 </Button>
                 <Button 
                   variant="destructive" 
                   size="sm"
                   onClick={() => handleDeletePermission(permission.id)}
                 >
-                  Delete
+                  <Trash/>
                 </Button>
               </TableCell>
             </TableRow>
@@ -145,5 +145,5 @@ id="name"
     </div>
   )
 }
-
-export default RootLayout(PermissionsPage)
+const WrappedPermission = RootLayout(PermissionsPage)
+export default  WrappedPermission

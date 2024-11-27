@@ -1,8 +1,18 @@
 
+
 import { useState } from 'react'
-import { Users, Shield, Key, Menu, X } from 'lucide-react'
-import { Button } from "../components/ui/button"
 import { Link } from 'react-router-dom'
+import { Users, Shield, Key, Menu, X, User, LogOut } from 'lucide-react'
+import { Button } from "@/components/ui/button"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Separator } from "@/components/ui/separator"
+
+// Mock user data (replace with actual authentication in a real app)
+const currentUser = {
+  name: "Jane Doe",
+  email: "jane@example.com",
+  avatar: "https://github.com/shadcn.png", // replace with actual avatar URL
+}
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -14,7 +24,7 @@ const Sidebar = () => {
       <Button
         variant="ghost"
         size="icon"
-        className="fixed top-4 left-4 z-50  md:hidden mt-16 "
+        className="fixed top-4 left-4 z-50 md:hidden"
         onClick={toggleSidebar}
       >
         {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -22,7 +32,7 @@ const Sidebar = () => {
       <div className={`
         fixed inset-y-0 left-0 z-40 w-64 bg-gray-800 text-white transform transition-transform duration-200 ease-in-out
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}
-        md:relative md:translate-x-0 md:pt-0 pt-32
+        md:relative md:translate-x-0 md:pt-0 pt-16
       `}>
         <nav className="h-full flex flex-col py-6">
           <div className="px-4 mb-6">
@@ -41,6 +51,27 @@ const Sidebar = () => {
             <NavItem href="/permissions" icon={<Key size={20} />} onClick={toggleSidebar}>
               Permissions
             </NavItem>
+          </div>
+          <Separator className="my-4" />
+          <div className="px-4">
+            <div className="flex items-center space-x-4 mb-2">
+              <Avatar>
+                <AvatarImage src={currentUser.avatar} alt={currentUser.name} />
+                <AvatarFallback>{currentUser.name.charAt(0)}</AvatarFallback>
+              </Avatar>
+              <div>
+                <p className="text-sm font-medium">{currentUser.name}</p>
+                <p className="text-xs text-gray-400">{currentUser.email}</p>
+              </div>
+            </div>
+            <Button variant="ghost" className="w-full justify-start" onClick={() => console.log("Profile clicked")}>
+              <User className="mr-2 h-4 w-4" />
+              Profile
+            </Button>
+            <Button variant="ghost" className="w-full justify-start text-red-400" onClick={() => console.log("Logout clicked")}>
+              <LogOut className="mr-2 h-4 w-4" />
+              Logout
+            </Button>
           </div>
         </nav>
       </div>
